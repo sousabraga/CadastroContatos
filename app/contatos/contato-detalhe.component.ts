@@ -60,7 +60,7 @@ export class ContatoDetalheComponent {
         if (this.isNew) {
             promise = this.contatoService.create(this.contato);
         } else {
-            console.log('Atualiza contato');
+            promise = this.contatoService.update(this.contato);
         }
 
         promise.then(contato => this.location.back());

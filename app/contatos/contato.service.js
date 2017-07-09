@@ -24,9 +24,18 @@ let ContatoService = class ContatoService {
             .catch(this.handleError);
     }
     create(contato) {
-        return this.http.post(this.contatosUrl, JSON.stringify(contato), { headers: this.headers })
+        return this.http
+            .post(this.contatosUrl, JSON.stringify(contato), { headers: this.headers })
             .toPromise()
             .then((response) => response.json().data)
+            .catch(this.handleError);
+    }
+    update(contato) {
+        const url = `${this.contatosUrl}/${contato.id}`; // app/contatos/:id
+        return this.http
+            .put(url, JSON.stringify(contato), { headers: this.headers })
+            .toPromise()
+            .then(() => contato)
             .catch(this.handleError);
     }
     handleError(error) {
