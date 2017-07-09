@@ -18,12 +18,14 @@ let ContatoDetalheComponent = class ContatoDetalheComponent {
         this.contatoService = contatoService;
         this.route = route;
         this.location = location;
+        this.isNew = true;
     }
     ngOnInit() {
         this.contato = new contato_model_1.Contato(0, '', '', '');
         this.route.params.forEach((params) => {
             let id = +params['id'];
             if (id) {
+                this.isNew = false;
                 this.contatoService.getContato(id)
                     .then((contato) => this.contato = contato);
             }
@@ -42,6 +44,12 @@ let ContatoDetalheComponent = class ContatoDetalheComponent {
             'form-control-danger': !isValid && !isPristine,
             'form-control-success': isValid && !isPristine
         };
+    }
+    onSubmit() {
+        if (this.isNew)
+            console.log('Cadastra contato');
+        else
+            console.log('Atualiza contato');
     }
 };
 ContatoDetalheComponent = __decorate([

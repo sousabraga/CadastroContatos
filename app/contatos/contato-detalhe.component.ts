@@ -14,6 +14,8 @@ export class ContatoDetalheComponent {
 
     contato: Contato;
 
+    private isNew: boolean = true;
+
     constructor(
         private contatoService: ContatoService,
         private route: ActivatedRoute,
@@ -27,6 +29,8 @@ export class ContatoDetalheComponent {
             let id: number = +params['id'];
 
             if (id) {
+                this.isNew = false;
+
                 this.contatoService.getContato(id)
                     .then((contato: Contato) => this.contato = contato);
             }
@@ -48,6 +52,13 @@ export class ContatoDetalheComponent {
             'form-control-danger': !isValid && !isPristine,
             'form-control-success': isValid && !isPristine
         };
+    }
+
+    onSubmit(): void {
+        if (this.isNew) 
+            console.log('Cadastra contato');
+        else
+            console.log('Atualiza contato');
     }
 
 }
