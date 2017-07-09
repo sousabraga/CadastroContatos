@@ -55,10 +55,15 @@ export class ContatoDetalheComponent {
     }
 
     onSubmit(): void {
-        if (this.isNew) 
-            console.log('Cadastra contato');
-        else
+        let promise;
+
+        if (this.isNew) {
+            promise = this.contatoService.create(this.contato);
+        } else {
             console.log('Atualiza contato');
+        }
+
+        promise.then(contato => this.location.back());
     }
 
 }
