@@ -29,6 +29,20 @@ let ContatoDetalheComponent = class ContatoDetalheComponent {
             }
         });
     }
+    getFormGroupClass(isValid, isPristine) {
+        return {
+            'form-group': true,
+            'has-danger': !isValid && !isPristine,
+            'has-success': isValid && !isPristine
+        };
+    }
+    getFormControlClass(isValid, isPristine) {
+        return {
+            'form-control': true,
+            'form-control-danger': !isValid && !isPristine,
+            'form-control-success': isValid && !isPristine
+        };
+    }
 };
 ContatoDetalheComponent = __decorate([
     core_1.Component({

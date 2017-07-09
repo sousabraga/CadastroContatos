@@ -34,4 +34,20 @@ export class ContatoDetalheComponent {
         });
     }
 
+    getFormGroupClass(isValid: boolean, isPristine: boolean): Object {
+        return {
+            'form-group': true,
+            'has-danger': !isValid && !isPristine,
+            'has-success': isValid && !isPristine
+        };
+    }
+
+    getFormControlClass(isValid: boolean, isPristine: boolean): Object {
+        return {
+            'form-control': true,
+            'form-control-danger': !isValid && !isPristine,
+            'form-control-success': isValid && !isPristine
+        };
+    }
+
 }
