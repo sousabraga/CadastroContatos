@@ -20,7 +20,13 @@ let ContatosListaComponent = class ContatosListaComponent {
         this.contatoService.getContatos()
             .then((contatos) => {
             this.contatos = contatos;
-        }).catch(error => console.log(error));
+        }).catch(error => {
+            console.log(error);
+            this.mostrarMensagem({
+                tipo: 'danger',
+                texto: 'Houve um erro ao carregar a lista de contatos.'
+            });
+        });
     }
     onDelete(contato) {
         this.dialogService.confirm(`Você confirma a exclusão do contato ${contato.nome} ?`)
@@ -29,9 +35,34 @@ let ContatosListaComponent = class ContatosListaComponent {
                 this.contatoService.delete(contato)
                     .then(() => {
                     this.contatos = this.contatos.filter(c => c.id != contato.id);
-                }).catch(error => console.log(error));
+                    this.mostrarMensagem({
+                        tipo: 'success',
+                        texto: 'Contato deletado com sucesso.'
+                    });
+                }).catch(error => {
+                    console.log(error);
+                    this.mostrarMensagem({
+                        tipo: 'danger',
+                        texto: 'Houve um erro ao deletar o contato.'
+                    });
+                });
             }
         });
+    }
+    mostrarMensagem(mensagem) {
+        this.mensagem = mensagem;
+        this.montarClasses(mensagem.tipo);
+        if (mensagem.tipo != 'danger') {
+            if (this.currentTimeout)
+                clearTimeout(this.currentTimeout);
+            this.currentTimeout = setTimeout(() => {
+                this.mensagem = undefined;
+            }, 3000);
+        }
+    }
+    montarClasses(tipo) {
+        this.classesCSS = { 'alert': true };
+        this.classesCSS['alert-' + tipo] = true;
     }
 };
 ContatosListaComponent = __decorate([
