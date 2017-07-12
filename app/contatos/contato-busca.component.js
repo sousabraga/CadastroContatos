@@ -17,6 +17,7 @@ let ContatoBuscaComponent = class ContatoBuscaComponent {
     constructor(contatoService, router) {
         this.contatoService = contatoService;
         this.router = router;
+        this.buscaChange = new core_1.EventEmitter();
         this.termosDaBusca = new Subject_1.Subject();
     }
     ngOnInit() {
@@ -29,14 +30,28 @@ let ContatoBuscaComponent = class ContatoBuscaComponent {
             return Observable_1.Observable.of([]);
         });
     }
+    ngOnChanges(changes) {
+        let busca = changes['busca'];
+        this.search(busca.currentValue);
+    }
     search(termo) {
         this.termosDaBusca.next(termo);
+        this.buscaChange.emit(termo);
     }
     verDetalhe(contato) {
         let link = ['contato/save', contato.id];
         this.router.navigate(link);
+        this.buscaChange.emit("");
     }
 };
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], ContatoBuscaComponent.prototype, "busca", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], ContatoBuscaComponent.prototype, "buscaChange", void 0);
 ContatoBuscaComponent = __decorate([
     core_1.Component({
         moduleId: module.id,

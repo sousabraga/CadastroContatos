@@ -9,11 +9,11 @@
         </li>
     </ul>
     <form class="form-inline float-xs-right">
-        <input class="form-control" type="text" placeholder="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <input name="busca" class="form-control" type="text" placeholder="Search" 
+            [(ngModel)]="termo" />
     </form>
 </nav>
 
 <router-outlet></router-outlet>
 
-<contato-busca></contato-busca>
+<contato-busca [(busca)]="termo"></contato-busca>

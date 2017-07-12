@@ -6,9 +6,10 @@ import 'rxjs/add/operator/toPromise';
 
 import { Contato } from './contato.model';
 import { CONTATOS } from './contatos-mock';
+import { ServiceInterface } from './../interfaces/service.interface';
 
 @Injectable()
-export class ContatoService {
+export class ContatoService implements ServiceInterface<Contato> {
 
     private contatosUrl: string = "app/contatos";
     private headers: Headers = new Headers({'Content-Type': 'application/json'});
@@ -17,11 +18,16 @@ export class ContatoService {
         private http: Http
     ) {}
 
-    getContatos(): Promise<Array<Contato>> {
+    findAll(): Promise<Array<Contato>> {
         return this.http.get(this.contatosUrl)
             .toPromise()
             .then(response => response.json().data as Array<Contato>)
             .catch(this.handleError);
+    }
+
+    find(id: number): Promise<Contato> {
+        return this.findAll()
+            .then((contatos: Array<Contato>) => contatos.find(contato => contato.id === id));
     }
 
     create(contato: Contato): Promise<Contato> {
@@ -54,11 +60,6 @@ export class ContatoService {
 
     private handleError(error: any): Promise<any> {
         return Promise.reject(error.message || error);
-    }
-
-    getContato(id: number): Promise<Contato> {
-        return this.getContatos()
-            .then((contatos: Array<Contato>) => contatos.find(contato => contato.id === id));
     }
 
     search(termo: string): Observable<Array<Contato>> {

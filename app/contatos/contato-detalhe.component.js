@@ -26,7 +26,7 @@ let ContatoDetalheComponent = class ContatoDetalheComponent {
             let id = +params['id'];
             if (id) {
                 this.isNew = false;
-                this.contatoService.getContato(id)
+                this.contatoService.find(id)
                     .then((contato) => this.contato = contato);
             }
         });
