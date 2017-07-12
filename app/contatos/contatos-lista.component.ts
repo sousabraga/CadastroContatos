@@ -11,7 +11,7 @@ import { DialogService } from './../dialog.service';
 })
 export class ContatosListaComponent implements OnInit {
 
-    contatos: Array<Contato>;
+    contatos: Array<Contato> = new Array<Contato>();
     mensagem: Object;
     classesCSS: Object;
 

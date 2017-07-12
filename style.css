@@ -13,3 +13,7 @@ body {
   margin: 2em;
 }*/
 
+.cursor-pointer:hover {
+  cursor: pointer;
+}  
+

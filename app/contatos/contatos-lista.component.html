@@ -29,7 +29,8 @@
                 </thead>
 
                 <tbody>
-                    <tr *ngFor="let c of contatos" [routerLink]="['/contato/save', c.id]">
+                    <tr *ngFor="let c of contatos" [routerLink]="['/contato/save', c.id]" 
+                        class="cursor-pointer">
                         <td>{{ c.nome }}</td>
                         <td>{{ c.email }}</td>
                         <td>{{ c.telefone }}</td>
@@ -38,6 +39,9 @@
                                 Deletar
                             </button>
                         </td>
+                    </tr>
+                    <tr *ngIf="contatos.length == 0">
+                        <td colspan="4" align="center">Nenhum registro encontrado.</td>
                     </tr>
                 </tbody>
             </table>

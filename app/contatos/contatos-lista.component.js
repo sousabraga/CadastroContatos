@@ -15,6 +15,7 @@ let ContatosListaComponent = class ContatosListaComponent {
     constructor(contatoService, dialogService) {
         this.contatoService = contatoService;
         this.dialogService = dialogService;
+        this.contatos = new Array();
     }
     ngOnInit() {
         this.contatoService.getContatos()

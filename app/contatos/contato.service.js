@@ -53,6 +53,11 @@ let ContatoService = class ContatoService {
         return this.getContatos()
             .then((contatos) => contatos.find(contato => contato.id === id));
     }
+    search(termo) {
+        return this.http
+            .get(`${this.contatosUrl}/?nome=${termo}`)
+            .map((response) => response.json().data);
+    }
 };
 ContatoService = __decorate([
     core_1.Injectable(),
